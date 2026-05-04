@@ -7,7 +7,6 @@ const ADMIN = { email: 'admin@gmail.com', password: 'admin123' }
 export const adminLogin = async (req, res) => {
   const { email, password } = req.body
 
-  console.log('Admin login attempt:', email)
 
   if (email !== ADMIN.email || password !== ADMIN.password) {
     return res.status(401).json({ message: 'Invalid admin ' })

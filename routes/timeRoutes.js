@@ -4,9 +4,9 @@ import { clockIn, clockOut, getAllTime, getHistory } from '../controllers/timeCo
 
 const router = express.Router();
 
-router.post('/clock-in',       protect, clockIn);
-router.put('/clock-out',       protect, clockOut);
-router.get('/all',             protect, getAllTime);
-router.get('/history/:id',     protect, getHistory);
+router.post('/clock-in',protect, clockIn);
+router.put('/clock-out',protect, clockOut);
+router.get('/all',protect, getAllTime);
+router.get('/history/:id',protect, getHistory);
 
 export default router;

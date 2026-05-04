@@ -5,8 +5,6 @@ export const createEmployee = async (req, res) => {
   try {
     const { name, email, password, payroll, experience, joinDate } = req.body
 
-    console.log('Creating employee:', { name, email, payroll, experience, joinDate })
-
     const hashed = await bcrypt.hash(password, 10)
 
     const emp = await Employee.create({
@@ -40,11 +38,11 @@ export const getEmployees = async (req, res) => {
     }
 
     if (minPay || maxPay)
-      query.payroll    = { $gte: Number(minPay) || 0, $lte: Number(maxPay) || 999999 }
+      query.payroll = { $gte: Number(minPay) || 0, $lte: Number(maxPay) || 999999 }
     if (minExp || maxExp)
       query.experience = { $gte: Number(minExp) || 0, $lte: Number(maxExp) || 99 }
 
-    const total  = await Employee.countDocuments(query)
+    const total= await Employee.countDocuments(query)
     const employees = await Employee.find(query)
       .select('-password')
       .sort(sort === 'date' ? { createdAt: -1 } : { name: 1 })
@@ -60,7 +58,6 @@ export const getEmployees = async (req, res) => {
 
 export const getEmployee = async (req, res) => {
   try {
-
     const emp = await Employee.findById(req.params.id).select('-password')
     if (!emp) {
       return res.status(404).json({ message: 'Employee not found' })

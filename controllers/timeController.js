@@ -21,8 +21,6 @@ export const clockIn = async (req, res) => {
     const { employeeId } = req.body
     const today = getTodayDate()
 
-    console.log(' Employee:', employeeId, '| Date:', today)
-
     let record = await TimeTrack.findOne({ employeeId, date: today })
 
     if (record) {
@@ -113,8 +111,8 @@ export const getAllTime = async (req, res) => {
       if (record && record.punches.length > 0) {
         const lastPunch = record.punches[record.punches.length - 1]
         if (lastPunch && !lastPunch.punchOut) status = 'Working'
-        else if (record.clockOut)             status = 'Completed'
-        else                                  status = 'On Break'
+        else if (record.clockOut) status = 'Completed'
+        else status = 'On Break'
       }
 
       const totalMins = record ? calcTotalMinutes(record.punches) : 0
