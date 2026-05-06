@@ -12,21 +12,24 @@ connectDB();
 
 const app = express();  
 app.use(cors({
-  origin: ['http://localhost:5173', 
-    'http://localhost:5174'],
+  origin: function (origin, callback) {
+    if (!origin || origin.startsWith('http://localhost:')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }))
-
 app.use(express.json());
-
 
 app.get("/health", (req, res) => {
   res.status(200).json("server running");
 });
 
-app.use('/api/auth',authRoutes);
-app.use('/api/employees',employeeRoutes);
-app.use('/api/time',timeRoutes);
+app.use('/api/auth', authRoutes);        
+app.use('/api/employees', employeeRoutes);
+app.use('/api/time', timeRoutes);
 
 app.get('/', (req, res) => res.send(' Server Running'));
 
