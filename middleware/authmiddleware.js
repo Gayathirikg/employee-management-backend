@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 
 export const protect = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
+   console.log("TOKEN:", token);           // ✅ Add
+  console.log("JWT_SECRET:", process.env.JWT_SECRET);
   console.log(req.headers.authorization);
   if (!token) return res.status(401).json({ message: 'No token, access denied' });
 

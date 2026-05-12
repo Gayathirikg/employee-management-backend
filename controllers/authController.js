@@ -12,7 +12,7 @@ export const adminLogin = async (req, res) => {
     return res.status(401).json({ message: 'Invalid admin ' })
   }
 
-  const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1d' })
+const token = jwt.sign({ id: 'admin', role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1d' })
 
   console.log('Admin login success:', email)
   res.json({ token, role: 'admin' })
